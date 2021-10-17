@@ -34,6 +34,9 @@ app.use('/api/v1/tasks', tasks)
  *
  *   combined http verbs, route paths, and data
  *
+ *  mongodb doesnt care how the data relates to each other. Instead of rows,
+ *  you have collections, instead of rowsm you have documents.
+ *  documents are sets of key value pairs
  */
 
 //app.get('/api/v1/tasks')
