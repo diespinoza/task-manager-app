@@ -2,12 +2,24 @@
 //the logic from the routes is places here so that app is more legible
 //and organized
 
+//
+const Task = require('../models/Task')
+
 const getAllTasks = (req,res) => {
   res.send('get all tasks');
 }
 
-const createTask = (req,res) => {
-  res.json(req.body);
+const createTask = async (req,res) => {
+  try{
+    //const task = await Task.create({name:'first task'})
+    const task = await Task.create(req.body)
+    //201 is the succesfull post status
+    res.status(201).json({ task });
+  } catch (error){
+    //500 is general server error
+    res.status(500).json({msg: error});
+    console.log(error);
+  }
 }
 
 const getTask = (req,res) => {

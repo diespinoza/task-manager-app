@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const tasks = require('./routes/tasks');
+const connectDB = require('./db/connect');
+require('dotenv').config();
+
 
 // middleware
 
@@ -37,6 +40,18 @@ app.use('/api/v1/tasks', tasks)
  *  mongodb doesnt care how the data relates to each other. Instead of rows,
  *  you have collections, instead of rowsm you have documents.
  *  documents are sets of key value pairs
+ *  once pushed to heroku, make mongoDB access from anywhere.
+ *  Mongodb collections have a dynamic schemes. So documents in the same
+ *  collection don't need to have the same setup field or destructor.
+ *
+ *  why mongoose?
+ *  Mongoose will setup a consistent structure
+ *  comes with many goodies that make development easier
+ *  mongoose 6.xx.xx has no more deprecation warnings
+ *  idea: connect to db first, then start the server.
+ *
+ * only the properties that we setup in the schema will be passed to the database
+ * current setup has no validation. you can pass in empty routers.
  */
 
 //app.get('/api/v1/tasks')
@@ -48,7 +63,17 @@ app.use('/api/v1/tasks', tasks)
 
 const port = 3000;
 
-app.listen(port, console.log(`server is listening on port ${port}...`))
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(port, console.log(`server is listening on port ${port}...`));
 
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+
+start()
 
 
