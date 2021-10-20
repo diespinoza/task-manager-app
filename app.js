@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 // middleware
-
+app.use(express.static('./public')) //serve static files
 app.use(express.json()); //data goes into req.body
 
 //routes
@@ -52,6 +52,9 @@ app.use('/api/v1/tasks', tasks)
  *
  * only the properties that we setup in the schema will be passed to the database
  * current setup has no validation. you can pass in empty routers.
+ *
+ *
+ *
  */
 
 //app.get('/api/v1/tasks')
@@ -67,7 +70,6 @@ const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     app.listen(port, console.log(`server is listening on port ${port}...`));
-
   } catch(error) {
     console.log(error);
   }
@@ -75,5 +77,4 @@ const start = async () => {
 
 
 start()
-
 

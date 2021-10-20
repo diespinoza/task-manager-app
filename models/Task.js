@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 //Why schema? to have consistent object for your database
 const TaskSchema = new mongoose.Schema({
   name: {
