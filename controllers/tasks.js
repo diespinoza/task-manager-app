@@ -1,4 +1,5 @@
-//why separete routes and tasks?
+// controllers/tasks
+// controller for the api for tasks
 //the logic from the routes is places here so that app is more legible
 //and organized
 

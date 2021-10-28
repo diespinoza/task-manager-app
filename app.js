@@ -1,17 +1,29 @@
+// app.js
+// main application code
 const express = require('express');
 const app = express();
 const tasks = require('./routes/tasks');
 const connectDB = require('./db/connect');
 require('dotenv').config();
 
+//model for db
+const Task = require('./models/Task');
 
 // middleware
 app.use(express.static('./public')) //serve static files
 app.use(express.json()); //data goes into req.body
 
 //routes
-app.get('/hello', (req, res) => {
-  res.send('Task Manger APP')
+app.get('/hello', async (req, res) => {
+  try{
+    //this was an experiment with using schemas in the main
+    //app.js code
+    const tasks = await Task.find({});
+    res.status(200).json({tasks})
+
+  } catch (error){
+
+  }
 })
 
 app.use('/api/v1/tasks', tasks)

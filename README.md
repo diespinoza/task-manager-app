@@ -16,3 +16,5 @@ This application allows you to create, view, update, delete a lists of tasks. Mo
 
 - How to use controllers and routes in a NodeJS application
 - How to create a clear and consistent API.
+    
+    stopped at 2:17:37

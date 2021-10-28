@@ -1,3 +1,6 @@
+// models/Tasks.js
+// mongoose model for Task
+
 const mongoose = require('mongoose');
 
 //Why schema? to have consistent object for your database
