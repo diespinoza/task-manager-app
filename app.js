@@ -7,27 +7,19 @@ const connectDB = require('./db/connect');
 require('dotenv').config();
 
 //model for db
-const Task = require('./models/Task');
+// const Task = require('./models/Task');
 
+const notFound = require('./middleware/not-found')
 // middleware
 app.use(express.static('./public')) //serve static files
 app.use(express.json()); //data goes into req.body
 
 //routes
-app.get('/hello', async (req, res) => {
-  try{
-    //this was an experiment with using schemas in the main
-    //app.js code
-    const tasks = await Task.find({});
-    res.status(200).json({tasks})
-
-  } catch (error){
-
-  }
-})
 
 app.use('/api/v1/tasks', tasks)
 
+//404
+app.use(notFound)
 
 /* What will the routes look like?
  * get all the tasks
@@ -65,7 +57,19 @@ app.use('/api/v1/tasks', tasks)
  * only the properties that we setup in the schema will be passed to the database
  * current setup has no validation. you can pass in empty routers.
  *
+ * why use PATCH over PUT?
+ * are both for updating the resource, when you use put
+ * the assumption is that you are replacing the existing
+ * resource, while patch is for a partial update.
+ * With put, if you send only the name, expect that
+ * all other properties will also be replaced, but
+ * mongoose
+ * doesnt automatically do that. Need overwrite property
  *
+ * when using a front end that already has try and
+ * catch,
+ * whichever response type or route you pick,
+ * stay consistend throughout the entire thing
  *
  */
 
