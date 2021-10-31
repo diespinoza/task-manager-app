@@ -10,16 +10,17 @@ require('dotenv').config();
 // const Task = require('./models/Task');
 
 const notFound = require('./middleware/not-found')
+const errorHandlerMiddleware = require('./middleware/error-handler')
 // middleware
 app.use(express.static('./public')) //serve static files
 app.use(express.json()); //data goes into req.body
 
 //routes
-
 app.use('/api/v1/tasks', tasks)
-
 //404
 app.use(notFound)
+//errors
+app.use(errorHandlerMiddleware);
 
 /* What will the routes look like?
  * get all the tasks
@@ -80,7 +81,8 @@ app.use(notFound)
 //app.delete('/api/v1/tasks/:id')
 
 
-const port = 3000;
+// const port = 3000;
+const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
